@@ -44,9 +44,9 @@ class DBHandler extends SQLDatabaseConnection implements IDatabaseBehaviour, ICR
     {
         $this->CRUDBehaviour->create();
     }
-    public function read()
+    public function read($parameter, $data = NULL)
     {
-        $this->CRUDBehaviour->read();
+        $this->CRUDBehaviour->read($parameter, $data);
     }
     public function update()
     {
@@ -78,6 +78,9 @@ $dbh->connect();
 
 $dbh->setSQLConnection($dbh->getDBConnection());
 
-$dbh->read();
+$param = "id";
+$data = "15";
+
+$dbh->read($param, $data);
 
 ?>

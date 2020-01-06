@@ -14,14 +14,29 @@ class SQLCRUD implements ICRUDBehaviour
         echo "SQL Create</br>";
     }
 
-    public function read()
+    public function read($parameter, $data = NULL)
     {
-        $query = "SELECT * FROM movie";
-        $stmt = $this->pdo->prepare($query);
-        $stmt->execute();
-        $rows = $stmt->fetchAll();
+        // Returns all rows if no data specified
+        if(!$data || !$parameter)
+        {
+            $query = "SELECT * FROM movie";
+            $stmt = $this->pdo->prepare($query);
+            $stmt->execute();
+            $result = $stmt->fetchAll();
 
-        return $rows;
+            return $result;
+        }
+
+        // If the ID has been passed, return just the one result
+        else
+        {
+            $query = "SELECT * FROM movie WHERE $parameter = " .$data;
+            $stmt = $this->pdo->prepare($query);
+            $stmt->execute();
+            $result = $stmt->fetch();
+
+            return $result;
+        }
     }
 
     public function update()
