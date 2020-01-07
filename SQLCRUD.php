@@ -4,7 +4,6 @@ require_once 'ICRUDBehaviour.php';
 
 class SQLCRUD implements ICRUDBehaviour
 {
-
     // Attributes
     private $pdo;
 

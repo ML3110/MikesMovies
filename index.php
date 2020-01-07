@@ -6,7 +6,7 @@ include "top.php";
 
 $dbh = new DBHandler('SQL', 'mysql', 3306, 'root', 'docker', 'MikesMovies');
 $dbh->connect();
-$dbh->setSQLConnection($dbh->getDBConnection());
+// $dbh->setSQLConnection($dbh->getDBConnection());
 
 echo '<div class="row">';
 include "searchbar.php";

@@ -31,6 +31,8 @@ class DBHandler extends SQLDatabaseConnection implements IDatabaseBehaviour, ICR
     public function connect()
     {
         parent::connect();
+        // This sets a pdo session in the CRUD behaviour
+        $this->setSQLConnection($this->getDBConnection());
     }
 
     public function disconnect()

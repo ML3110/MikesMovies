@@ -3,7 +3,7 @@ include "top.php";
 include "DBHandler.php";
 $dbh = new DBHandler('SQL', 'mysql', 3306, 'root', 'docker', 'MikesMovies');
 $dbh->connect();
-$dbh->setSQLConnection($dbh->getDBConnection());
+// $dbh->setSQLConnection($dbh->getDBConnection());
 
 $result = $dbh->read('id', $_GET["id"]);
 $dbh->disconnect();

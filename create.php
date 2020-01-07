@@ -43,7 +43,7 @@ require_once 'DBHandler.php';
 <?php
 $dbh = new DBHandler('SQL', 'mysql', 3306, 'root', 'docker', 'MikesMovies');
 $dbh->connect();
-$dbh->setSQLConnection($dbh->getDBConnection());
+// $dbh->setSQLConnection($dbh->getDBConnection());
 $dbh->create($_POST);
 
 $dbh->disconnect();
