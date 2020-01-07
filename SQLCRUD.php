@@ -6,37 +6,68 @@ class SQLCRUD implements ICRUDBehaviour
 {
 
     // Attributes
-    protected $pdo;
+    private $pdo;
 
     // Methods
-    public function create()
+    public function create($post)
     {
-        echo "SQL Create</br>";
+        //TODO: Prepared statements
+        $query = "INSERT INTO movie (";
+
+        foreach($post as $key => $value)
+        {
+            if ($key == "submit")
+            {
+                $query = rtrim($query, ", ");
+                $query = $query . ")";
+                continue;
+            }
+            $query = $query . "`" . $key . "`, ";
+        }
+
+        $query = $query . " VALUES (";
+
+        foreach ($post as $key => $value) {
+            if ($key == "submit")
+            {
+                $query = rtrim($query, ", ");
+                $query = $query . ");";
+                continue;
+            }
+            $query = $query . "'" . $value . "', ";
+        }
+
+        $stmt = $this->pdo->prepare($query);
+
+        $stmt->execute();
     }
 
-    public function read($parameter, $data = NULL)
+    public function read($parameter = NULL, $data = NULL)
     {
-        // Returns all rows if no data specified
-        if(!$data || !$parameter)
-        {
-            $query = "SELECT * FROM movie";
-            $stmt = $this->pdo->prepare($query);
-            $stmt->execute();
-            $result = $stmt->fetchAll();
+        $query = "SELECT * FROM movie";
 
-            return $result;
+        // TODO: Prepared statement
+        // If a parameter is set, perform a search on that
+        // by appending to the query
+
+        // TODO: Look at if only one parameter passed
+        // TODO: If ID is passed, LIKE will break
+        if ($data && $parameter)
+        {
+            $query = $query . " WHERE $parameter LIKE '%" . $data . "%'";
         }
 
-        // If the ID has been passed, return just the one result
-        else
-        {
-            $query = "SELECT * FROM movie WHERE $parameter = " .$data;
-            $stmt = $this->pdo->prepare($query);
-            $stmt->execute();
-            $result = $stmt->fetch();
+        // Prepare statement
+        $stmt = $this->pdo->prepare($query);
 
-            return $result;
-        }
+        // Execute statement
+        $stmt->execute();
+
+        // Get all results
+        $result = $stmt->fetchAll();
+
+        // Return result(s)
+        return $result;
     }
 
     public function update()
@@ -44,9 +75,22 @@ class SQLCRUD implements ICRUDBehaviour
         echo "SQL Update</br>";
     }
 
-    public function delete()
+    public function delete($data)
     {
-        echo "SQL Delete</br>";
+        $query = "DELETE FROM movie WHERE movie.id = " . $data;
+
+        $stmt = $this->pdo->prepare($query);
+
+        $stmt->execute();
+
+        if($stmt->execute())
+        {
+            echo "Record deleted</br>";
+        }
+        else
+        {
+            echo "Error deleting record</br>";
+        }
     }
 
     // Properties

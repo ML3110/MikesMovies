@@ -10,7 +10,6 @@ class DBHandler extends SQLDatabaseConnection implements IDatabaseBehaviour, ICR
     private $dbType;
     private $dbBehaviour;
     private $CRUDBehaviour;
-    // public $pd;
 
     // Constructor
     public function __construct($dbType, $host, $port, $username, $password, $dbName)
@@ -40,47 +39,33 @@ class DBHandler extends SQLDatabaseConnection implements IDatabaseBehaviour, ICR
     }
 
     // Methods - CRUD
-    public function create()
+    public function create($post)
     {
-        $this->CRUDBehaviour->create();
+        $this->CRUDBehaviour->create($post);
     }
-    public function read($parameter, $data = NULL)
+    public function read($parameter = NULL, $data = NULL)
     {
-        $this->CRUDBehaviour->read($parameter, $data);
+        return $this->CRUDBehaviour->read($parameter, $data);
     }
     public function update()
     {
         $this->CRUDBehaviour->update();
     }
-    public function delete()
+    public function delete($data)
     {
-        $this->CRUDBehaviour->delete();
+        $this->CRUDBehaviour->delete($data);
     }
 
     // Properties
-    public function setSQLConnection($data)
-    {
-        $this->CRUDBehaviour->setSQLConnection($data);
-    }
     public function getDBConnection()
     {
         return parent::getDBConnection();
     }
+
+    public function setSQLConnection($data)
+    {
+        $this->CRUDBehaviour->setSQLConnection($data);
+    }
 }
-
-?>
-
-<?php
-
-$dbh = new DBHandler('SQL', 'mysql', 3306, 'root', 'docker', 'MikesMovies');
-
-$dbh->connect();
-
-$dbh->setSQLConnection($dbh->getDBConnection());
-
-$param = "id";
-$data = "15";
-
-$dbh->read($param, $data);
 
 ?>

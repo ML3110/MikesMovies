@@ -41,7 +41,7 @@ class SQLDatabaseConnection implements IDatabaseBehaviour
         if (isset($this->pdo))
         {
             $this->pdo = NULL;
-            echo "Disconnected";
+            // echo "Disconnected";
         }
     }
 
