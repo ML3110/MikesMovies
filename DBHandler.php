@@ -49,9 +49,9 @@ class DBHandler extends SQLDatabaseConnection implements IDatabaseBehaviour, ICR
     {
         return $this->CRUDBehaviour->read($parameter, $data);
     }
-    public function update()
+    public function update($data)
     {
-        $this->CRUDBehaviour->update();
+        $this->CRUDBehaviour->update($data);
     }
     public function delete($data)
     {

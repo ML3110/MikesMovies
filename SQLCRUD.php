@@ -69,9 +69,26 @@ class SQLCRUD implements ICRUDBehaviour
         return $result;
     }
 
-    public function update()
+    public function update($data)
     {
-        echo "SQL Update</br>";
+        $query = "UPDATE `movie` SET `name` = '" . $data["name"] . "' WHERE `movie`.`id` = " . $_GET["id"];
+
+        $stmt = $this->pdo->prepare($query);
+
+        $stmt->execute();
+
+        if($stmt->execute())
+        {
+            echo "Success</br>";
+            echo "<a href='index.php'>Home</a>";
+        }
+        else 
+        {
+            echo "Update failed";
+        }
+
+        // $query = "UPDATE 'movie' SET '"
+        // UPDATE `movie` SET `name` = 'tes' WHERE `movie`.`id` = 42; 
     }
 
     public function delete($data)
