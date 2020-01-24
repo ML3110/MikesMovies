@@ -32,7 +32,7 @@ class DBHandler extends SQLDatabaseConnection implements IDatabaseBehaviour, ICR
     {
         parent::connect();
         // This sets a pdo session in the CRUD behaviour
-        $this->setSQLConnection($this->getDBConnection());
+        $this->setCRUDConnection($this->getDBConnection());
     }
 
     public function disconnect()
@@ -64,9 +64,9 @@ class DBHandler extends SQLDatabaseConnection implements IDatabaseBehaviour, ICR
         return parent::getDBConnection();
     }
 
-    public function setSQLConnection($data)
+    public function setCRUDConnection($data)
     {
-        $this->CRUDBehaviour->setSQLConnection($data);
+        $this->CRUDBehaviour->setCRUDConnection($data);
     }
 }
 

@@ -9,7 +9,7 @@ interface ICRUDBehaviour
     public function update();
     public function delete($data);
 
-    public function setSQLConnection($data);
+    public function setCRUDConnection($data);
 }
 
 ?>

@@ -93,7 +93,7 @@ class SQLCRUD implements ICRUDBehaviour
     }
 
     // Properties
-    public function setSQLConnection($data)
+    public function setCRUDConnection($data)
     {
         $this->pdo = $data;
     }

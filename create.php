@@ -1,8 +1,13 @@
 <?php
-require_once 'DBHandler.php';
-?>
+session_start();
 
-<h2>Add</h2>
+include "top.php";
+
+if(@$_SESSION["username"])
+{
+    require_once 'DBHandler.php';
+    ?>
+    <h2>Add</h2>
 
 <form method="post">
     Movie name: 
@@ -43,8 +48,16 @@ require_once 'DBHandler.php';
 <?php
 $dbh = new DBHandler('SQL', 'mysql', 3306, 'root', 'docker', 'MikesMovies');
 $dbh->connect();
-// $dbh->setSQLConnection($dbh->getDBConnection());
+// $dbh->setCRUDConnection($dbh->getDBConnection());
 $dbh->create($_POST);
 
 $dbh->disconnect();
+}
+
+else 
+{
+    include "login.php";
+}
+
+include "bottom.php";
 ?>

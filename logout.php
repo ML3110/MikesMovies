@@ -7,7 +7,7 @@ session_destroy();
 
 ?>
 
-<h1>You have been loged out</h1>
+<h1>You have been logged out</h1>
 
 <?php
 include "login.php";

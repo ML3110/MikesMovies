@@ -1,17 +1,18 @@
 <?php
+include "top.php";
+if(@$_POST)
+{
+    require_once 'UserHandler.php';
 
-require_once 'DBHandler.php';
+    $uh = new UserHandler('SQL', 'mysql', 3306, 'root', 'docker', 'MikesMovies');
+    $uh->connect();
+    $uh->CheckLogin($_POST);
+    $uh->disconnect();
+}
 
-$dbh = new DBHandler('SQL', 'mysql', 3306, 'root', 'docker', 'MikesMovies');
-$dbh->connect();
-
-print_r($_POST);
-
-$username = $_POST["username"];
-$password = $_POST["password"];
-
-$query = "SELECT * FROM user WHERE username = " . $username . " AND password = " . $password;
-
-echo($query);
-
+else
+{
+    include "login.php";
+}
+include "bottom.php";
 ?>
