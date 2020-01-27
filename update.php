@@ -8,14 +8,14 @@ if(@$_SESSION["username"])
     require_once 'DBHandler.php';
 
     $dbh = new DBHandler('SQL', 'mysql', 3306, 'root', 'docker', 'MikesMovies');
-    $dbh->connect();
+    $dbh->Connect();
     
     $result = $dbh->read('id', $_GET["id"]);
     $id = $_GET["id"];
-    $dbh->disconnect();
+    $dbh->Disconnect();
 
     ?>
-    <h2>Add</h2>
+    <h2>Update</h2>
 
 <form method="post" action="updateAction.php?id=<?php echo $id; ?>">
     Movie name: 

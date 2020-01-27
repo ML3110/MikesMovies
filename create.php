@@ -47,11 +47,11 @@ if(@$_SESSION["username"])
 
 <?php
 $dbh = new DBHandler('SQL', 'mysql', 3306, 'root', 'docker', 'MikesMovies');
-$dbh->connect();
+$dbh->Connect();
 // $dbh->setCRUDConnection($dbh->getDBConnection());
-$dbh->create($_POST);
+$dbh->Create($_POST);
 
-$dbh->disconnect();
+$dbh->Disconnect();
 }
 
 else 

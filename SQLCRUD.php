@@ -8,56 +8,62 @@ class SQLCRUD implements ICRUDBehaviour
     private $pdo;
 
     // Methods
-    public function create($post)
+    public function Create($post)
     {
-        //TODO: Prepared statements
-        $query = "INSERT INTO movie (";
-
-        foreach($post as $key => $value)
-        {
-            if ($key == "submit")
-            {
-                $query = rtrim($query, ", ");
-                $query = $query . ")";
-                continue;
-            }
-            $query = $query . "`" . $key . "`, ";
-        }
-
-        $query = $query . " VALUES (";
-
-        foreach ($post as $key => $value) {
-            if ($key == "submit")
-            {
-                $query = rtrim($query, ", ");
-                $query = $query . ");";
-                continue;
-            }
-            $query = $query . "'" . $value . "', ";
-        }
-
-        $stmt = $this->pdo->prepare($query);
-
-        $stmt->execute();
-    }
-
-    public function read($parameter = NULL, $data = NULL)
-    {
-        $query = "SELECT * FROM movie";
-
-        // TODO: Prepared statement
-        // If a parameter is set, perform a search on that
-        // by appending to the query
-
-        // TODO: Look at if only one parameter passed
-        // TODO: If ID is passed, LIKE will break
-        if ($data && $parameter)
-        {
-            $query = $query . " WHERE $parameter LIKE '%" . $data . "%'";
-        }
+        $query = "INSERT INTO movie (`name`, `agerating`, `coverpic`, `runtime`, `genre`, `releaseyear`, `plot`) VALUES (:name, :agerating, :coverpic, :runtime, :genre, :releaseyear, :plot)";
 
         // Prepare statement
         $stmt = $this->pdo->prepare($query);
+
+        // Bind parameters
+        $stmt->bindParam(':name', $_POST["name"]);
+        $stmt->bindParam(':agerating', $_POST["agerating"]);
+        $stmt->bindParam(':coverpic', $_POST["coverpic"]);
+        $stmt->bindParam(':runtime', $_POST["runtime"]);
+        $stmt->bindParam(':genre', $_POST["genre"]);
+        $stmt->bindParam(':releaseyear', $_POST["releaseyear"]);
+        $stmt->bindParam(':plot', $_POST["plot"]);
+
+        // Execute
+        $stmt->execute();
+    }
+
+    public function Read($parameter = NULL, $data = NULL)
+    {
+        $query = "SELECT * FROM movie";
+
+        $data = filter_var($data, FILTER_SANITIZE_STRING);
+
+        // If a parameter is set, perform a search on that
+        // by appending to the query
+        if ($data)
+        {
+            // If name, need to change the data slightly
+            if ($parameter == "name")
+            {
+                $query = $query . " WHERE name LIKE :data";
+                $data = "%".$data."%";
+            }
+            
+            // If not name (likely ID in this scenario), 
+            // append to query
+            else
+            {
+                $query = $query . " WHERE $parameter = :data";
+            }
+
+            // Prepare
+            $stmt = $this->pdo->prepare($query);
+
+            // Bind parameter
+            $stmt->bindParam(':data', $data);
+        }
+
+        // If not, this will return everything
+        else 
+        {
+            $stmt = $this->pdo->prepare($query);
+        }
 
         // Execute statement
         $stmt->execute();
@@ -69,14 +75,24 @@ class SQLCRUD implements ICRUDBehaviour
         return $result;
     }
 
-    public function update($data)
+    public function Update($data)
     {
-        $query = "UPDATE `movie` SET `name` = '" . $data["name"] . "' WHERE `movie`.`id` = " . $_GET["id"];
+        // Query
+        $query = "UPDATE `movie` SET `name` = :name, `agerating` = :agerating, `coverpic` = :coverpic, `runtime` = :runtime, `genre` = :genre, `releaseyear` = :releaseyear, `plot` = :plot WHERE `movie`.`id` = " . $_GET["id"];
 
+        // Prepare
         $stmt = $this->pdo->prepare($query);
 
-        $stmt->execute();
+        // Bind
+        $stmt->bindParam(':name', $_POST["name"]);
+        $stmt->bindParam(':agerating', $_POST["agerating"]);
+        $stmt->bindParam(':coverpic', $_POST["coverpic"]);
+        $stmt->bindParam(':runtime', $_POST["runtime"]);
+        $stmt->bindParam(':genre', $_POST["genre"]);
+        $stmt->bindParam(':releaseyear', $_POST["releaseyear"]);
+        $stmt->bindParam(':plot', $_POST["plot"]);
 
+        // If successful
         if($stmt->execute())
         {
             echo "Success</br>";
@@ -85,19 +101,17 @@ class SQLCRUD implements ICRUDBehaviour
         else 
         {
             echo "Update failed";
+            echo "<a href='index.php'>Home</a>";
         }
-
-        // $query = "UPDATE 'movie' SET '"
-        // UPDATE `movie` SET `name` = 'tes' WHERE `movie`.`id` = 42; 
     }
 
-    public function delete($data)
+    public function Delete($data)
     {
-        $query = "DELETE FROM movie WHERE movie.id = " . $data;
+        $query = "DELETE FROM movie WHERE movie.id = :data";
 
         $stmt = $this->pdo->prepare($query);
 
-        $stmt->execute();
+        $stmt->bindParam(':data', $data);
 
         if($stmt->execute())
         {
@@ -110,7 +124,7 @@ class SQLCRUD implements ICRUDBehaviour
     }
 
     // Properties
-    public function setCRUDConnection($data)
+    public function SetCRUDConnection($data)
     {
         $this->pdo = $data;
     }

@@ -27,15 +27,15 @@ class UserHandler extends SQLDatabaseConnection implements IDatabaseBehaviour, I
     }
 
     // Methods - DB
-    public function connect()
+    public function Connect()
     {
-        parent::connect();
-        $this->SetConnection($this->getDBConnection());
+        parent::Connect();
+        $this->SetConnection($this->GetDBConnection());
     }
 
-    public function disconnect()
+    public function Disconnect()
     {
-        parent::disconnect();
+        parent::Disconnect();
     }
 
     // Methods - user
@@ -45,9 +45,9 @@ class UserHandler extends SQLDatabaseConnection implements IDatabaseBehaviour, I
     }
 
     // Properties
-    public function getDBConnection()
+    public function GetDBConnection()
     {
-        return parent::getDBConnection();
+        return parent::GetDBConnection();
     }
 
     public function SetConnection($data)

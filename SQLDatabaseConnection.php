@@ -24,7 +24,7 @@ class SQLDatabaseConnection implements IDatabaseBehaviour
     }
 
     // Methods
-    public function connect()
+    public function Connect()
     {
         // If the pdo isn't set, instantiate a new PDO
         if (!isset($this->pdo))
@@ -34,19 +34,18 @@ class SQLDatabaseConnection implements IDatabaseBehaviour
         }
     }
 
-    public function disconnect()
+    public function Disconnect()
     {
         // If the pdo contains other than NULL,
-        // set it to NULL to disconnect it
+        // set it to NULL to Disconnect it
         if (isset($this->pdo))
         {
             $this->pdo = NULL;
-            // echo "Disconnected";
         }
     }
 
     // Properties
-    public function getDBConnection()
+    public function GetDBConnection()
     {
         return $this->pdo;
     }

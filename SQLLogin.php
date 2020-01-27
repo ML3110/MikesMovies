@@ -12,12 +12,18 @@ class SQLLogin implements ILoginBehaviour
     // Methods
     public function CheckLogin($post)
     {
-        $this->username = $post["username"];
-        $this->password = $post["password"];
+        // Sanitize example. Remove special chars from username
+        $this->username = preg_replace('/[^A-Za-z0-9\-]/', '', $post["username"]);
 
-        $query = "SELECT * FROM user WHERE username = '" . $this->username . "' AND password = '" . $this->password . "'";
+        // Sanitize example. Allow special chars but remove html tags
+        $this->password = filter_var($post["password"], FILTER_SANITIZE_STRING);
+
+        $query = "SELECT * FROM user WHERE username = :username AND password = :password";
 
         $stmt = $this->pdo->prepare($query);
+
+        $stmt->bindParam(':username', $this->username);
+        $stmt->bindParam(':password', $this->password);
 
         $stmt->execute();
 

@@ -28,45 +28,45 @@ class DBHandler extends SQLDatabaseConnection implements IDatabaseBehaviour, ICR
     }
 
     // Methods - DB
-    public function connect()
+    public function Connect()
     {
-        parent::connect();
+        parent::Connect();
         // This sets a pdo session in the CRUD behaviour
-        $this->setCRUDConnection($this->getDBConnection());
+        $this->SetCRUDConnection($this->GetDBConnection());
     }
 
-    public function disconnect()
+    public function Disconnect()
     {
-        parent::disconnect();
+        parent::Disconnect();
     }
 
     // Methods - CRUD
-    public function create($post)
+    public function Create($post)
     {
-        $this->CRUDBehaviour->create($post);
+        $this->CRUDBehaviour->Create($post);
     }
-    public function read($parameter = NULL, $data = NULL)
+    public function Read($parameter = NULL, $data = NULL)
     {
-        return $this->CRUDBehaviour->read($parameter, $data);
+        return $this->CRUDBehaviour->Read($parameter, $data);
     }
-    public function update($data)
+    public function Update($data)
     {
-        $this->CRUDBehaviour->update($data);
+        $this->CRUDBehaviour->Update($data);
     }
-    public function delete($data)
+    public function Delete($data)
     {
-        $this->CRUDBehaviour->delete($data);
+        $this->CRUDBehaviour->Delete($data);
     }
 
     // Properties
-    public function getDBConnection()
+    public function GetDBConnection()
     {
-        return parent::getDBConnection();
+        return parent::GetDBConnection();
     }
 
-    public function setCRUDConnection($data)
+    public function SetCRUDConnection($data)
     {
-        $this->CRUDBehaviour->setCRUDConnection($data);
+        $this->CRUDBehaviour->SetCRUDConnection($data);
     }
 }
 

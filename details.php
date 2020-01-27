@@ -7,11 +7,11 @@ if (@$_SESSION["username"])
 {
     include "DBHandler.php";
     $dbh = new DBHandler('SQL', 'mysql', 3306, 'root', 'docker', 'MikesMovies');
-    $dbh->connect();
+    $dbh->Connect();
     // $dbh->setCRUDConnection($dbh->getDBConnection());
     
-    $result = $dbh->read('id', $_GET["id"]);
-    $dbh->disconnect();
+    $result = $dbh->Read('id', $_GET["id"]);
+    $dbh->Disconnect();
     
     echo '</br>';
     

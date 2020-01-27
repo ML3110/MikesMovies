@@ -7,8 +7,10 @@ if (@$_SESSION["username"])
 {
     require_once "DBHandler.php";
     $dbh = new DBHandler('SQL', 'mysql', 3306, 'root', 'docker', 'MikesMovies');
-    $dbh->connect();
+    $dbh->Connect();
     // $dbh->setCRUDConnection($dbh->getDBConnection());
+
+    // $newtest = preg_replace('/[^A-Za-z0-9\-]/', '', $test);
 
     echo '<div class="row">';
     include "searchbar.php";
@@ -19,15 +21,15 @@ if (@$_SESSION["username"])
 
     if (empty($_POST))
     {
-        $rows = $dbh->read();
+        $rows = $dbh->Read();
     }
 
     else 
     {
-        $rows = $dbh->read('name', $_POST["search"]);
+        $rows = $dbh->Read('name', $_POST["search"]);
     }
 
-    $dbh->disconnect();
+    $dbh->Disconnect();
 
     foreach($rows as $row)
     {
