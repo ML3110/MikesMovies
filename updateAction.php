@@ -5,8 +5,7 @@ session_start();
 include "top.php";
 
 if(@$_SESSION["username"] && $_SESSION["userType"] == "admin")
-{
-    
+{ 
     require_once 'DBHandler.php';
     
     $dbh = new DBHandler('SQL', 'mysql', 3306, 'root', 'docker', 'MikesMovies');

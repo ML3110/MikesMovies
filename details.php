@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 
 include "top.php";
@@ -6,10 +7,11 @@ include "top.php";
 if (@$_SESSION["username"])
 {
     include "DBHandler.php";
+
     $dbh = new DBHandler('SQL', 'mysql', 3306, 'root', 'docker', 'MikesMovies');
-    $dbh->Connect();
-    // $dbh->setCRUDConnection($dbh->getDBConnection());
-    
+    $dbh->Connect();    
+
+    // Passes in the id paramter from the URL
     $result = $dbh->Read('id', $_GET["id"]);
     $dbh->Disconnect();
     

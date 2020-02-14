@@ -1,5 +1,8 @@
 <?php
+
 include "top.php";
+
+// If there is post data, run the relevant check
 if(@$_POST)
 {
     require_once 'UserHandler.php';
@@ -14,5 +17,6 @@ else
 {
     include "login.php";
 }
+
 include "bottom.php";
 ?>

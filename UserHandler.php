@@ -1,3 +1,5 @@
+<!-- User handler handles just the user login stuff -->
+
 <?php
 
 require_once 'IDatabaseBehaviour.php';

@@ -1,3 +1,6 @@
+<!-- Main db handler. Implements both the database and CRUD behaviours.
+Extends the SQLDB connection info -->
+
 <?php
 
 require_once 'IDatabaseBehaviour.php';
@@ -45,14 +48,17 @@ class DBHandler extends SQLDatabaseConnection implements IDatabaseBehaviour, ICR
     {
         $this->CRUDBehaviour->Create($post);
     }
+
     public function Read($parameter = NULL, $data = NULL)
     {
         return $this->CRUDBehaviour->Read($parameter, $data);
     }
+
     public function Update($data)
     {
         $this->CRUDBehaviour->Update($data);
     }
+
     public function Delete($data)
     {
         $this->CRUDBehaviour->Delete($data);

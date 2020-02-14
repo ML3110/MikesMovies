@@ -1,13 +1,16 @@
 <?php
+
 session_start();
 
 include "top.php";
 
+// If the user is an admin, display the options to add
 if(@$_SESSION["username"] && $_SESSION["userType"] == "admin")
 {
     require_once 'DBHandler.php';
-    ?>
-    <h2>Add</h2>
+?>
+
+<h2>Add</h2>
 
 <form method="post">
     Movie name: 
@@ -32,6 +35,10 @@ if(@$_SESSION["username"] && $_SESSION["userType"] == "admin")
     <select name="genre">
         <option value="Action">Action</option>
         <option value="Adventure">Adventure</option>
+        <option value="Fantasy">Fantasy</option>
+        <option value="Drama">Drama</option>
+        <option value="Horror">Horror</option>
+        <option value="Thriller">Thriller</option>
     </select>
     </br>
     Release Year: 
@@ -46,11 +53,10 @@ if(@$_SESSION["username"] && $_SESSION["userType"] == "admin")
 <a href="index.php">Back</a></br>
 
 <?php
+
 $dbh = new DBHandler('SQL', 'mysql', 3306, 'root', 'docker', 'MikesMovies');
 $dbh->Connect();
-// $dbh->setCRUDConnection($dbh->getDBConnection());
 $dbh->Create($_POST);
-
 $dbh->Disconnect();
 }
 

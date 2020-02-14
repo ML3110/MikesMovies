@@ -1,3 +1,5 @@
+<!-- This handles all of the CRUD operations -->
+
 <?php
 
 require_once 'ICRUDBehaviour.php';

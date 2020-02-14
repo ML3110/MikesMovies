@@ -3,6 +3,7 @@ session_start();
 
 include "top.php";
 
+// If the user is an admin allow them to use update
 if(@$_SESSION["username"] && $_SESSION["userType"] == "admin")
 {
     require_once 'DBHandler.php';
@@ -10,6 +11,7 @@ if(@$_SESSION["username"] && $_SESSION["userType"] == "admin")
     $dbh = new DBHandler('SQL', 'mysql', 3306, 'root', 'docker', 'MikesMovies');
     $dbh->Connect();
     
+    // Reads specific movive based on ID from URL parameter
     $result = $dbh->read('id', $_GET["id"]);
     $id = $_GET["id"];
     $dbh->Disconnect();
@@ -17,6 +19,7 @@ if(@$_SESSION["username"] && $_SESSION["userType"] == "admin")
     ?>
     <h2>Update</h2>
 
+<!-- Below echos out result variables into the HTML text boxes -->
 <form method="post" action="updateAction.php?id=<?php echo $id; ?>">
     Movie name: 
     <input type="text" name="name" value='<?php echo $result[0]["name"]; ?>' id="name">
