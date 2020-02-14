@@ -4,7 +4,7 @@ session_start();
 
 include "top.php";
 
-if(@$_SESSION["username"])
+if(@$_SESSION["username"] && $_SESSION["userType"] == "admin")
 {
     
     require_once 'DBHandler.php';

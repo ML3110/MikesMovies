@@ -3,7 +3,7 @@ session_start();
 
 include "top.php";
 
-if (@$_SESSION)
+if (@$_SESSION && $_SESSION["userType"] == "admin")
 {
     include 'DBHandler.php';
 

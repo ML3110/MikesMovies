@@ -9,7 +9,7 @@ class UserHandler extends SQLDatabaseConnection implements IDatabaseBehaviour, I
     // Attributes
     private $dbType;
     private $dbBehaviour;
-    private $loginBehaviour; // Need login
+    private $loginBehaviour;
 
     // Constructor
     public function __construct($dbType, $host, $port, $username, $password, $dbName)
@@ -22,7 +22,7 @@ class UserHandler extends SQLDatabaseConnection implements IDatabaseBehaviour, I
 
         $this->dbType = $dbType;
         $this->dbType = $this->dbType . "Login";
-        $this->loginBehaviour = new $this->dbType; // Need login
+        $this->loginBehaviour = new $this->dbType;
         $this->dbType = $dbType;
     }
 

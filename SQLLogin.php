@@ -27,6 +27,8 @@ class SQLLogin implements ILoginBehaviour
 
         $stmt->execute();
 
+        $adminCheck = $stmt->fetch();
+
         // If the statement returns a 1, the login was valid
         $count = $stmt->rowCount();
 
@@ -35,6 +37,17 @@ class SQLLogin implements ILoginBehaviour
             session_start();
 
             $_SESSION["username"] = $this->username;
+            
+            if ($adminCheck["isAdmin"] == 1)
+            {
+                $_SESSION["userType"] = "admin";
+            }
+            else 
+            {
+                $_SESSION["userType"] = "standard";
+            }
+
+            print_r($_SESSION);
 
             echo "<h2>Welcome " . $_SESSION["username"] . "!</h2></br>";
             echo "<h2><a href='index.php'>Go to homepage</a></h2>";
