@@ -18,7 +18,7 @@ if (@$_SESSION && $_SESSION["userType"] == "admin")
 
 else 
 {
-    include "index.php";
+    include "login.php";
 }
 
 ?>

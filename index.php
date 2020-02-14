@@ -37,8 +37,11 @@ if (@$_SESSION["username"])
             echo '<div class="card">';
                 echo '<img src="images/' . $row["coverpic"] . '" class="cover" </br>' ;
                 echo '<p>' . $row["name"] . '</p>';
-                echo '<a href="update.php?id=' . $row["id"] . '"><button>Update</button></a>';
-                echo '<a href="delete.php?id=' . $row["id"] . '"><button>Delete</button></a>';
+                if($_SESSION["userType"] == "admin")
+                {
+                    echo '<a href="update.php?id=' . $row["id"] . '"><button>Update</button></a>';
+                    echo '<a href="delete.php?id=' . $row["id"] . '"><button>Delete</button></a>';    
+                }
                 echo '<a href="details.php?id=' . $row["id"] . '">Details</a>';
 
             echo '</div>';
@@ -46,7 +49,10 @@ if (@$_SESSION["username"])
         echo '</div>';
     }
 
-    echo '<a href="create.php"><button>Add New</button></a>';
+    if($_SESSION["userType"] == "admin")
+    {
+        echo '<a href="create.php"><button>Add New</button></a>';
+    }
 }
 
 else
