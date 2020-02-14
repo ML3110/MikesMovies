@@ -47,8 +47,6 @@ class SQLLogin implements ILoginBehaviour
                 $_SESSION["userType"] = "standard";
             }
 
-            print_r($_SESSION);
-
             echo "<h2>Welcome " . $_SESSION["username"] . "!</h2></br>";
             echo "<h2><a href='index.php'>Go to homepage</a></h2>";
 
